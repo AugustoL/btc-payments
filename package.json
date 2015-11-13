@@ -1,0 +1,35 @@
+{
+  "name": "btc-payments",
+  "version": "1.0.0",
+  "description": "Bitcoin payments processor built over using bitcore and blocker.io api.",
+  "main": "./lib/index",
+  "dependencies": {
+    "async": "^0.9.2",
+    "bitcore-lib": "^0.13.7",
+    "just-a-logger": "^0.1.1",
+    "mongoose": "4.1.8",
+    "request": "^2.40.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node lib/index",
+    "test": "mocha test/complete -u tdd --timeout 60000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AugustoL/btc-payments.git"
+  },
+  "keywords": [
+    "Bitcoin",
+    "Payment",
+    "processor",
+    "Bitcore",
+    "Blockr.io"
+  ],
+  "author": "Augusto Lemble <npm@augustolemble.com> (http://augustolemble.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AugustoL/btc-payments/issues"
+  },
+  "homepage": "https://github.com/AugustoL/btc-payments"
+}

@@ -3,7 +3,6 @@ var assert = require("assert");
 var btcPaymentsConfig = require('./config');
 console.log("BTCPayments config: \n",btcPaymentsConfig);
 var BTCPayments = null;
-var paymentW = null;
 
 describe('BTCPayments', function() {
 
@@ -11,15 +10,6 @@ describe('BTCPayments', function() {
 
 		BTCPayments = new require('../lib/index')(btcPaymentsConfig,[],[]);
 		done();
-
-	});
-
-	test('BTCPayments update', function(done) {
-
-		BTCPayments.update(function(err){
-			assert.equal(null, err);
-			done();
-		});
 
 	});
 
@@ -78,44 +68,6 @@ describe('BTCPayments', function() {
 
 	});
 
-	test('BTCPayments create a TX using Test operation and 0.001 of quantity', function(done) {
-
-		BTCPayments.createTX('Test',0.001,{},function(err,newPaymentW){
-			paymentW = newPaymentW;
-			assert.equal(null, err);
-			assert.notEqual(null, paymentW);
-			console.log('New TX added: \n',paymentW);
-			done();
-		})
-    
-  	});
-
-  	test('BTCPayments update with new waitingTX', function(done) {
-
-		BTCPayments.update(function(err){
-			assert.equal(null, err);
-			done();
-		});
-
-	});
-
-  	test('BTCPayments removes a txWaiting', function(done) {
-
-		BTCPayments.cancelTX(paymentW.id,true,function(err,doneCancel){
-			assert.equal(null, err);
-			console.log(paymentW.id+' TX canceled, otherData: \n',doneCancel);
-			done();
-		})
-    
-  	});
-
-  	test('BTCPayments update with new waitingTX', function(done) {
-
-		BTCPayments.update(function(err){
-			assert.equal(null, err);
-			done();
-		});
-
-	});
-
 });
+
+

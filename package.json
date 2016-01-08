@@ -1,6 +1,6 @@
 {
   "name": "btc-payments",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Bitcoin payments processor built over using bitcore and blocker.io api.",
   "main": "./lib/index",
   "dependencies": {
@@ -13,7 +13,10 @@
   "devDependencies": {},
   "scripts": {
     "start": "node lib/index",
-    "test": "mocha test/complete -u tdd --timeout 60000"
+    "test": "mocha test/complete -u tdd --timeout 0",
+    "test-complete": "mocha test/complete -u tdd --timeout 0",
+    "test-payment": "mocha test/createPayment -u tdd --timeout 0",
+    "test-functions": "mocha test/functions -u tdd --timeout 0"
   },
   "repository": {
     "type": "git",

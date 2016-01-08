@@ -118,4 +118,23 @@ describe('BTCPayments', function() {
 
 	});
 
+	test('BTCPayments start proccess', function(done) {
+
+		BTCPayments.start();
+		done();
+
+	});
+
+	test('BTCPayments close after 10 seconds', function(done) {
+
+		console.log('Closing processor..');
+		setTimeout(function() {
+		    BTCPayments.close(function(err){
+				assert.equal(null, err);
+				done();
+			});
+		}, 10000);
+
+	});
+
 });

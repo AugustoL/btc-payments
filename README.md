@@ -59,6 +59,8 @@ An NPM module to easily configure and integrate a BTC payments processor into no
 - [x] Add editOnComplete and editOnCancel functions.
 - [x] Write basic tests.
 - [x] Stop gracefully.
+- [x] Added from address.
+- [ ] Tests with real data.
 - [ ] Pause and start processor.
 - [ ] Better error handling.
 - [ ] Add wariningTimeout functions.

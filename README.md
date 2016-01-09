@@ -7,40 +7,40 @@ An NPM module to easily configure and integrate a BTC payments processor into no
 	npm install btc-payments
 	```
 2. Create a config.js to run the processor with this format:
-	```
+```
 	{
-	    logLevel : 'debug', // none, normal, debug
-	    dbURI : 'mongodb://USER:PASS@IP:PORT/DBNAME', //URI to use to connect to db
-	    network : 'testnet', // testnet or livenet
-	    seedBytes : "your secret string to recover all your balances", // String of the seed master key
-	    btcMainAddress : "YOUR_BTC_MAIN_ADDRESS", // Address to receive the payments
-	    paymentTimeout : 120, // The amount of time in minutes that the user have to make the payment
-	    limitBalance : 0.005, //The max balance that your waiting addresses can have
-	    txFee : 0.0001, // The fee amount to use in your transactions to teh BTC main address
-	    functionTimeout : 10 // The amount of time of second that you want to wait beetwen processor updates
+		logLevel : 'debug', // none, normal, debug
+		dbURI : 'mongodb://USER:PASS@IP:PORT/DBNAME', //URI to use to connect to db
+		network : 'testnet', // testnet or livenet
+		seedBytes : "your secret string to recover all your balances", // String of the seed master key
+		btcMainAddress : "YOUR_BTC_MAIN_ADDRESS", // Address to receive the payments
+		paymentTimeout : 120, // The amount of time in minutes that the user have to make the payment
+		limitBalance : 0.005, //The max balance that your waiting addresses can have
+		txFee : 0.0001, // The fee amount to use in your transactions to teh BTC main address
+		functionTimeout : 10 // The amount of time of second that you want to wait beetwen processor updates
 	}
-	```
+```
 3. Create the processor object: 
-	```
+```
 	BTCPayments = new require('btc-payments')(btcPaymentsConfig,[],[]);
-	```
+```
 4. Add the onComplete and onCancel payments functions:
-	```
+```
 	BTCPayments.addOnComplete('Test',function(otherData,callback){
 		logger.log('Test payment type completed');
-	    logger.log('Message in otherData: '+otherData.message);
-	    callback(null,'Success');
+		logger.log('Message in otherData: '+otherData.message);
+		callback(null,'Success');
 	});
 	BTCPayments.addOnCancel('Test',function(otherData,callback){
 		logger.log('Test payment type canceled');
-	    logger.log('Message in otherData: '+otherData.message);
-	    callback(null,'Success');
+		logger.log('Message in otherData: '+otherData.message);
+		callback(null,'Success');
 	});
-	```
+```
 5. Start the processor:
-	```
+```
 	BTCPayments.start();
-	```
+```
 
 ## Update Steps
 1. Get all the addresses in the addressesPool that are waiting to receive a payment.

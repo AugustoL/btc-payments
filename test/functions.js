@@ -23,6 +23,8 @@ describe('BTCPayments', function() {
 			console.log('BTC Payment tx completed, using edited function');
 			callback(null,payment);
 		});
+		console.log('onComplete functions:');
+		console.log(BTCPayments.onCompleteFunctions());
 		done();
 	});
 
@@ -38,6 +40,8 @@ describe('BTCPayments', function() {
 			console.log('BTC Payment tx warned, using edited function');
 			callback(null,payment);
 		});
+		console.log('onWarning functions:');
+		console.log(BTCPayments.onWarningFunctions());
 		done();
 	});
 
@@ -53,6 +57,8 @@ describe('BTCPayments', function() {
 			console.log('BTC Payment tx canceled, using edited function');
 			callback(null,payment);
 		});
+		console.log('onWarning functions:');
+		console.log(BTCPayments.onCancelFunctions());
 		done();
 	});
 

@@ -15,6 +15,7 @@ describe('BTCPayments run app', function() {
 	test('BTCPayments onComplete Test function', function(done) {
 		var funcToAdd = function(payment,callback){
 			console.log('BTC Payment tx completed');
+			console.log(payment);
 			callback(null,payment);
 		};
 		BTCPayments.addOnComplete('Test', funcToAdd);
@@ -22,6 +23,7 @@ describe('BTCPayments run app', function() {
 		BTCPayments.removeOnComplete('ToDelete');
 		BTCPayments.changeOnComplete('Test', function(payment,callback){
 			console.log('BTC Payment tx completed, using edited function');
+			console.log(payment);
 			callback(null,payment);
 		});
 		done();
@@ -30,6 +32,7 @@ describe('BTCPayments run app', function() {
 	test('BTCPayments onWarning Test function', function(done) {
 		var funcToAdd = function(payment,callback){
 			console.log('BTC Payment tx warned');
+			console.log(payment);
 			callback(null,payment);
 		};
 		BTCPayments.addOnWarning('Test', funcToAdd);
@@ -37,6 +40,7 @@ describe('BTCPayments run app', function() {
 		BTCPayments.removeOnWarning('ToDelete');
 		BTCPayments.changeOnWarning('Test', function(payment,callback){
 			console.log('BTC Payment tx warned, using edited function');
+			console.log(payment);
 			callback(null,payment);
 		});
 		done();
@@ -45,6 +49,7 @@ describe('BTCPayments run app', function() {
 	test('BTCPayments onCancel Test function', function(done) {
 		var funcToAdd = function(payment,callback){
 			console.log('BTC Payment tx canceled');
+			console.log(payment);
 			callback(null,payment);
 		};
 		BTCPayments.addOnCancel('Test', funcToAdd);
@@ -52,6 +57,7 @@ describe('BTCPayments run app', function() {
 		BTCPayments.removeOnCancel('ToDelete');
 		BTCPayments.changeOnCancel('Test', function(payment,callback){
 			console.log('BTC Payment tx canceled, using edited function');
+			console.log(payment);
 			callback(null,payment);
 		});
 		done();

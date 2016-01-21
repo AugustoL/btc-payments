@@ -7,65 +7,53 @@ var BTCPayments = null;
 describe('BTCPayments', function() {
 
 	test('BTCPayments its created', function(done) {
-
-		BTCPayments = new require('../lib/index')(btcPaymentsConfig,[],[]);
+		BTCPayments = new require('../lib/index')(btcPaymentsConfig,[],[],[]);
 		done();
-
 	});
 
-	test('BTCPayments add onComplete Test function', function(done) {
-
-		BTCPayments.addOnComplete('Test',function(otherData,callback){
-			console.log('onComplete function called Test added');
-			callback(null,'Success');
-		});
-		done();
-
-	});
-
-	test('BTCPayments add onComplete ToDelete fucntion', function(done) {
-
-		BTCPayments.addOnComplete('ToDelete',function(otherData,callback){
-			console.log('onComplete function called toDelete added');
-			callback(null,'Success');
-		});
-		done();
-
-	});
-
-	test('BTCPayments remove onComplete ToDelete function', function(done) {
-
+	test('BTCPayments onComplete Test function', function(done) {
+		var funcToAdd = function(payment,callback){
+			console.log('BTC Payment tx completed');
+			callback(null,payment);
+		};
+		BTCPayments.addOnComplete('Test', funcToAdd);
+		BTCPayments.addOnComplete('ToDelete', funcToAdd);
 		BTCPayments.removeOnComplete('ToDelete');
-		done();
-
-	});
-
-	test('BTCPayments add onCancel Test function', function(done) {
-
-		BTCPayments.addOnCancel('Test',function(otherData,callback){
-			console.log('onCancel function called Test added');
-			callback(null,'Success');
+		BTCPayments.changeOnComplete('Test', function(payment,callback){
+			console.log('BTC Payment tx completed, using edited function');
+			callback(null,payment);
 		});
 		done();
-
 	});
 
-	test('BTCPayments add onCancel ToDelete fucntion', function(done) {
-
-		BTCPayments.addOnCancel('ToDelete',function(otherData,callback){
-			console.log('onCancel function called toDelete added');
-			callback(null,'Success');
+	test('BTCPayments onWarning Test function', function(done) {
+		var funcToAdd = function(payment,callback){
+			console.log('BTC Payment tx warned');
+			callback(null,payment);
+		};
+		BTCPayments.addOnWarning('Test', funcToAdd);
+		BTCPayments.addOnWarning('ToDelete',funcToAdd);
+		BTCPayments.removeOnWarning('ToDelete');
+		BTCPayments.changeOnWarning('Test', function(payment,callback){
+			console.log('BTC Payment tx warned, using edited function');
+			callback(null,payment);
 		});
 		done();
-
 	});
 
-	test('BTCPayments remove onCancel ToDelete function', function(done) {
-
+	test('BTCPayments onCancel Test function', function(done) {
+		var funcToAdd = function(payment,callback){
+			console.log('BTC Payment tx canceled');
+			callback(null,payment);
+		};
+		BTCPayments.addOnCancel('Test', funcToAdd);
+		BTCPayments.addOnCancel('ToDelete', funcToAdd);
 		BTCPayments.removeOnCancel('ToDelete');
-		console.log('onCancel function called toDelete removed');
+		BTCPayments.changeOnCancel('Test', function(payment,callback){
+			console.log('BTC Payment tx canceled, using edited function');
+			callback(null,payment);
+		});
 		done();
-
 	});
 
 });

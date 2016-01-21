@@ -18,22 +18,27 @@ An NPM module to easily configure and integrate a BTC payments processor into no
 		limitBalance : 0.005, //The max balance that your waiting addresses can have
 		txFee : 0.0001, // The fee amount to use in your transactions to teh BTC main address
 		functionTimeout : 10 // The amount of time of second that you want to wait beetwen processor updates
+		warningTimeout : 10 // When a paymentWaiting have this amount of minutes left a function gets executed
 	}
 ```
 3. Create the processor object: 
 ```
 	BTCPayments = new require('btc-payments')(btcPaymentsConfig,[],[]);
 ```
-4. Add the onComplete and onCancel payments functions:
+4. Add the onComplete, on Warning and onCancel payments functions:
 ```
 	BTCPayments.addOnComplete('Test',function(otherData,callback){
-		logger.log('Test payment type completed');
-		logger.log('Message in otherData: '+otherData.message);
+		console.log('Test payment type completed');
+		console.log('Message in otherData: '+otherData.message);
+		callback(null,'Success');
+	});
+	BTCPayments.addOnWarning('Test',function(otherData,callback){
+		console.log('Test payment type warned');
 		callback(null,'Success');
 	});
 	BTCPayments.addOnCancel('Test',function(otherData,callback){
-		logger.log('Test payment type canceled');
-		logger.log('Message in otherData: '+otherData.message);
+		console.log('Test payment type canceled');
+		console.log('Message in otherData: '+otherData.message);
 		callback(null,'Success');
 	});
 ```
@@ -49,6 +54,7 @@ An NPM module to easily configure and integrate a BTC payments processor into no
 4. Check all the utxos, get a total balance of the address.
 5. Three possible cases:
   * The address balance its the same and it didn't receive any btc or not the enough btc to complete the payment, finish.
+  * The address reach the timeout warning and the payment exec the warning function.
   * The address reach the timeout waiting and the payment got canceled, finish.
   * The address balance its enough to complete the payment, to step 6.
 6. If the address balance its higher than the minimum balance that every address can have send the btcs to the main address using all the utxos, if not the address finish waiting and its free to be used for another payment. 
@@ -60,9 +66,9 @@ An NPM module to easily configure and integrate a BTC payments processor into no
 - [x] Write basic tests.
 - [x] Stop gracefully.
 - [x] Added from address.
+- [x] Add wariningTimeout functions.
 - [ ] Tests with real data.
 - [ ] Pause and start processor.
 - [ ] Better error handling.
-- [ ] Add wariningTimeout functions.
 - [ ] Better documentation.
 - [ ] improve performance.

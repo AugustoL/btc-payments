@@ -8,7 +8,22 @@ var paymentW = null;
 describe('BTCPayments', function() {
 
 	test('BTCPayments its created', function(done) {
-		BTCPayments = new require('../lib/index')(btcPaymentsConfig,[],[],[]);
+		BTCPayments = new require('../lib/index')(btcPaymentsConfig,[],[],[],[]);
+		done();
+	});
+
+	test('BTCPayments onCreate Test function', function(done) {
+		var funcToAdd = function(payment,callback){
+			console.log('BTC Payment tx created');
+			callback(null,payment);
+		};
+		BTCPayments.addOnCreate('Test', funcToAdd);
+		BTCPayments.addOnCreate('ToDelete', funcToAdd);
+		BTCPayments.removeOnCreate('ToDelete');
+		BTCPayments.changeOnCreate('Test', function(payment,callback){
+			console.log('BTC Payment tx created, using edited function');
+			callback(null,payment);
+		});
 		done();
 	});
 

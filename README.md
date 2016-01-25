@@ -23,22 +23,28 @@ An NPM module to easily configure and integrate a BTC payments processor into no
 ```
 3. Create the processor object: 
 ```
-	BTCPayments = new require('btc-payments')(btcPaymentsConfig,[],[]);
+	BTCPayments = new require('btc-payments')(btcPaymentsConfig,[],[].[],[]);
 ```
 4. Add the onComplete, on Warning and onCancel payments functions:
 ```
-	BTCPayments.addOnComplete('Test',function(otherData,callback){
+	BTCPayments.addOnCreate('Test',function(payment,callback){
+		console.log('Test payment type created');
+		console.log(payment.toString());
+		callback(null,'Success');
+	});
+	BTCPayments.addOnComplete('Test',function(payment,callback){
 		console.log('Test payment type completed');
-		console.log('Message in otherData: '+otherData.message);
+		console.log(payment.toString());
 		callback(null,'Success');
 	});
-	BTCPayments.addOnWarning('Test',function(otherData,callback){
+	BTCPayments.addOnWarning('Test',function(payment,callback){
 		console.log('Test payment type warned');
+		console.log(payment.toString());
 		callback(null,'Success');
 	});
-	BTCPayments.addOnCancel('Test',function(otherData,callback){
+	BTCPayments.addOnCancel('Test',function(payment,callback){
 		console.log('Test payment type canceled');
-		console.log('Message in otherData: '+otherData.message);
+		console.log(payment.toString());
 		callback(null,'Success');
 	});
 ```
@@ -62,6 +68,7 @@ An NPM module to easily configure and integrate a BTC payments processor into no
 ## TO DO
 
 - [x] Add onPaymentCanceled functions.
+- [x] Add onPaymentCreated functions.
 - [x] Add editOnComplete and editOnCancel functions.
 - [x] Write basic tests.
 - [x] Stop gracefully.
